@@ -36,5 +36,4 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-function
 
