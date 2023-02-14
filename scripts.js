@@ -5,7 +5,7 @@ function getComputerChoice(){
 }
 
 function playRound(playerSelection, computerSelection) {
-    playerSelection = playerSelection.toLowercase();
+   
    if (playerSelection === 'rock') {
     if (computerSelection === 'paper') {
         return 'You lose! Paper covers rock.';
@@ -38,28 +38,44 @@ function playRound(playerSelection, computerSelection) {
 function game() {
     let playerScore = 0;
     let computerScore = 0;
+   let computerSelection;
+   let playerSelection;
+   let tie = 0;
+    
     for (let i = 0; i < 5; i++) {
-       let playerScore = prompt ('Enter you choice: Rock, Paper, or Scissors.')
-       if (playerSelection !== null) {
-        let computerSelection = getComputerChoice();
+       playerSelection = prompt('Enter you choice: Rock, Paper, or Scissors.');
+
+       if (playerSelection !== null || '') {
+        computerSelection = getComputerChoice();
        } 
-    }
-    let result = playRound(playerSelection, computerSelection);
+    
+   let result = playRound(playerSelection.toLowerCase(), computerSelection);
     console.log(result);
-    if (result.startsWith('You Win!')) {
+    if (result.startsWith('You win!')) {
         playerScore++;
         
     }
-    else if (result.startsWith('You Lose!')) {
+    else if (result.startsWith('You lose!')) {
         computerScore++;
+    }
+    else if (result.startsWith("It's a tie!")) {
+        tie++;
     }
  
     else {
         console.log('You canceled the game.');
     }
-    if (computerScore < playerScore) {
-        console.log('You Won the Game! Your score is ${playerscore} and the computer score is!{computerScore}. ');
-        
+
+    if (computerScore < playerScore && i > 3) {
+        console.log(`You Won the Game! Your score is ${playerScore} and the computer score is ${computerScore}. `);  
+    }
+    else if (i > 3 && computerScore > playerScore) {
+        console.log(`You Lost the Game! Your score is ${playerScore} and the computer score is ${computerScore}. `);
+    }
+    else if (i > 3 && computerScore === playerScore) {
+        console.log(`You Tied the computer! Your score is ${playerScore} and the computer score is ${computerScore}.`);
+    }
     }
 }
+game()
 
