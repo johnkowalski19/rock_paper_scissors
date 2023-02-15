@@ -1,4 +1,4 @@
-function getComputerChoice(){
+    function getComputerChoice(){
     let choices = ['rock', 'paper', 'scissors'];
     let randomIndex = Math.floor(Math.random()* 3);
     return choices[randomIndex];
@@ -41,16 +41,26 @@ function game() {
    let computerSelection;
    let playerSelection;
    let tie = 0;
+   let roundCounter = 0;
     
     for (let i = 0; i < 5; i++) {
-       playerSelection = prompt('Enter you choice: Rock, Paper, or Scissors.');
+        playerSelection = prompt('Enter you choice: Rock, Paper, or Scissors.');
 
-       if (playerSelection !== null || '') {
+       if (playerSelection === null || playerSelection === '') {
+            console.log('Invalid input');
+            continue;
+        }
+
         computerSelection = getComputerChoice();
-       } 
+
+       while (!['rock', 'paper', 'scissors'].includes(playerSelection.toLowerCase())) {
+        console.log('Invalid input! Please enter a valid choice: Rock, Paper, or Scissors.');
+        playerSelection = prompt('Enter you choice: Rock, Paper, or Scissors.');
+    }
     
    let result = playRound(playerSelection.toLowerCase(), computerSelection);
     console.log(result);
+    
     if (result.startsWith('You win!')) {
         playerScore++;
         
@@ -61,10 +71,12 @@ function game() {
     else if (result.startsWith("It's a tie!")) {
         tie++;
     }
- 
+    
     else {
         console.log('You canceled the game.');
     }
+    roundCounter++;
+    console.log(`Round # ${roundCounter}`);
 
     if (computerScore < playerScore && i > 3) {
         console.log(`You Won the Game! Your score is ${playerScore} and the computer score is ${computerScore}. `);  
@@ -78,4 +90,3 @@ function game() {
     }
 }
 game()
-
